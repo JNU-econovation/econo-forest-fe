@@ -3,12 +3,14 @@ import { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-
 import reset from 'styled-reset';
 
 import Theme from "./styles/Theme";
+import routes from "./routes";
 
 function AppRouter() {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<div>Hi</div>} />
+        <Route path={routes.home} element={<div>Home</div>} />
+        <Route path={routes.eat} element={<div>eat</div>} />
       </Routes>
     </Router>
   );
