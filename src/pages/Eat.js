@@ -4,25 +4,30 @@ function Eat(){
   return (
     <Body>
       <Main>
-        // 메뉴바 (나비게이션 바) 컴포넌트
-        // 밥 먹어요 컴포넌트
+        <div>메뉴 바</div>
+        <div>밥 먹어요 컴포넌트</div>
       </Main>
-      // 동방 현황바 컴포넌트
+      <div>동방 현황바 컴포넌트</div>
     </Body>
   );
 }
 
 const Body = styled.div`
-  width: 100vh;
+  width: 100vw;
   height: 100vh;
   
   display: grid;
   grid-template-columns: auto 470px;
+  
+  font-family: ${props => props.theme.logoFont};
 `
 
 const Main = styled.div`
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  display: grid;
+  grid-template-rows: 120px auto;
 `;
 
 export default Eat;
