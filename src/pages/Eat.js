@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
-import plusIcon from '../images/Icon feather-plus-circle.webp'
 import EatInfo from "../components/eat/EatInfo";
+import plusIcon from '../images/Icon feather-plus-circle@2x.webp';
+import LTree from '../images/L_tree@2x.webp';
+import RTree from '../images/R_tree@2x.webp';
 
 function Eat(){
   return (
@@ -12,8 +14,15 @@ function Eat(){
           <TitleBox>
             <div className="title">밥먹어요</div>
             <img className="plus-icon" src={plusIcon} />
+
           </TitleBox>
           <EatInfo />
+          <EatInfo />
+          <EatInfo />
+          <EatInfo />
+
+          <img className="left-tree" src={LTree} />
+          <img className="right-tree" src={RTree} />
         </Section>
       </Main>
       <div>동방 현황바 컴포넌트</div>
@@ -33,16 +42,34 @@ const Body = styled.div`
 
 const Main = styled.div`
   display: grid;
-  grid-template-rows: 120px auto;
+  grid-template-rows: 100px auto;
 `;
 
 const Section = styled.div`
-  padding: 7.5%;
+  padding: 0 7%;
   background-color: ${props => props.theme.green};
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+  position: relative;
+  
+  .right-tree, .left-tree {
+    width: 10%;
+    bottom: 3%;
+    position: absolute;
+    object-fit: contain;
+  }
+  
+  .right-tree {
+    right: 2.5%;
+  }
+  
+  .left-tree {
+    left: 2.5%;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -51,7 +78,7 @@ const TitleBox = styled.div`
   
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
   
   color: ${props => props.theme.brightColor};
   font-family: ${props => props.theme.logoFont};
@@ -64,7 +91,7 @@ const TitleBox = styled.div`
   .plus-icon {
     width: 20px;
     height: 20px;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 

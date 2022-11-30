@@ -4,6 +4,16 @@ import {useEffect, useState} from "react";
 function EatInfo({onEditMode, info}) {
   const [eatInfo, setEatInfo] = useState({});
 
+  const onButtonClick = () => {
+    /* 버튼
+    * 작성자일 경우 => 삭제 및 수정
+    *
+    * 작성자가 아니고 참여 신청하지 않았을 경우 => 참여
+    * 작성자가 아니고 참여 신청했을 경우 => 취소 (불참?)
+    *
+    * 시간이 지났을 경우 => 마감
+    * */
+  };
 
   useEffect(() => {
     if (!onEditMode) {
@@ -33,7 +43,9 @@ function EatInfo({onEditMode, info}) {
           <div className="info" id="author">김수민</div>
         </InputBox>
       </Info>
-      <Button><div>버튼</div></Button>
+      <Button onClick={onButtonClick}>
+        <div>버튼</div>
+      </Button>
     </Section>
   )
 };
@@ -41,6 +53,9 @@ function EatInfo({onEditMode, info}) {
 const Section = styled.div`
   width: 100%;
   height: 120px;
+  
+  position: relative;
+  z-index: 1;
   
   padding: 10px 0;
   
