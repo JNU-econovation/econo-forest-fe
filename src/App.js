@@ -41,9 +41,10 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
     outline: none;
   }
+  
   body {
-    font-family: 'Apple SD Gothic Neo', sans-serif;
     font-weight: 400;
+    font-family: 'Apple SD Gothic Neo', sans-serif;
   }
 `;
 
