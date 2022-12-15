@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Header from "./Header";
+import StatusBar from "./StatusBar";
 
 function Layout({ children }) {
   return (
@@ -8,7 +9,7 @@ function Layout({ children }) {
         <Header />
         {children}
       </Main>
-      <div>동방 현황바 컴포넌트</div>
+      <StatusBar />
     </Body>
   );
 }
