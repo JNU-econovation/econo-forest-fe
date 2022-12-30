@@ -1,6 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider as StyledThemeProvider, createGlobalStyle } from 'styled-components';
-import reset from 'styled-reset';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  ThemeProvider as StyledThemeProvider,
+  createGlobalStyle,
+} from "styled-components";
+import reset from "styled-reset";
 
 import Theme from "./styles/Theme";
 import routes from "./routes";
@@ -20,8 +23,8 @@ function AppRouter() {
 function App() {
   return (
     <StyledThemeProvider theme={Theme}>
-        <GlobalStyle />
-        <AppRouter />
+      <GlobalStyle />
+      <AppRouter />
     </StyledThemeProvider>
   );
 }
@@ -40,9 +43,6 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     text-decoration: none;
     outline: none;
-  }
-  
-  body {
     font-weight: 400;
     font-family: 'Apple SD Gothic Neo', sans-serif;
   }

@@ -17,6 +17,6 @@ const Theme = {
 
   logoFont: "'Elice Digital Baeum', sans-serif",
   mainFont: "'Apple SD Gothic Neo', sans-serif",
-}
+};
 
 export default Theme;

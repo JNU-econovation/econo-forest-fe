@@ -12,15 +12,15 @@ function Eat() {
       <Section>
         <TitleBox>
           <div className="title">밥먹어요</div>
-          <img className="plus-icon" src={plusIcon} />
+          <img className="plus-icon" src={plusIcon} alt="plus-icon" />
         </TitleBox>
         <EatInfo />
         <EatInfo />
         <EatInfo />
         <EatInfo />
 
-        <img className="left-tree" src={LTree} />
-        <img className="right-tree" src={RTree} />
+        <img className="left-tree" src={LTree} alt="left-tree" />
+        <img className="right-tree" src={RTree} alt="right-tree" />
       </Section>
     </Layout>
   );
@@ -36,6 +36,7 @@ const Section = styled.div`
   align-items: center;
 
   position: relative;
+  z-index: 0;
 
   .right-tree,
   .left-tree {
@@ -43,6 +44,7 @@ const Section = styled.div`
     bottom: 3%;
     position: absolute;
     object-fit: contain;
+    z-index: -1;
   }
 
   .right-tree {
