@@ -5,8 +5,77 @@ import Layout from "../components/layout/Layout";
 import plusIcon from "../images/Icon feather-plus-circle@2x.webp";
 import LTree from "../images/L_tree@2x.webp";
 import RTree from "../images/R_tree@2x.webp";
+import { useEffect, useState } from "react";
 
 function Eat() {
+  const [eatInfoArray, setEatInfoArray] = useState([]);
+
+  // const info = {
+  //   id: "1",
+  //   title: "하이하이 밥 먹을 사람",
+  //   date: "",
+  //   location: "후문",
+  //   numParticipant: "0",
+  //   participants: {},
+  //   authorName: "김수민",
+  //   authorId: "2",
+  //   isAuthor: true,
+  //   isApplied: true,
+  // };
+
+  useEffect(() => {
+    setEatInfoArray([
+      {
+        id: "1",
+        title: "하이하이 밥 먹을 사람",
+        date: "",
+        location: "후문",
+        numParticipant: "1",
+        participants: ["김수민"],
+        authorName: "김수민",
+        authorId: "2",
+        isAuthor: false,
+        isApplied: true,
+      },
+      {
+        id: "2",
+        title: "하이하이 쭈꾸미 먹을 사람",
+        date: "",
+        location: "상대",
+        numParticipant: "2",
+        participants: ["김수민", "경주원"],
+        authorName: "경주원",
+        authorId: "2",
+        isAuthor: false,
+        isApplied: false,
+      },
+      {
+        id: "3",
+        title: "하이하이 회 먹을 사람",
+        date: "",
+        location: "공대",
+        numParticipant: "3",
+        participants: ["김수민", "경주원", "김종준"],
+        authorName: "김종준",
+        authorId: "2",
+        isAuthor: true,
+        isApplied: true,
+      },
+      {
+        id: "4",
+        title: "하이하이 샌드위치 먹을 사람",
+        date: "",
+        location: "정문",
+        numParticipant: "4",
+        participants: ["김수민", "경주원", "김종준"],
+        authorName: "김현지",
+        authorId: "2",
+        isAuthor: true,
+        isApplied: true,
+      },
+    ]);
+  }, []);
+
   return (
     <Layout>
       <Section>
@@ -14,10 +83,10 @@ function Eat() {
           <div className="title">밥먹어요</div>
           <img className="plus-icon" src={plusIcon} alt="plus-icon" />
         </TitleBox>
-        <EatInfo />
-        <EatInfo />
-        <EatInfo />
-        <EatInfo />
+
+        {eatInfoArray.map((info) => (
+          <EatInfo info={info} key={info.id} />
+        ))}
 
         <img className="left-tree" src={LTree} alt="left-tree" />
         <img className="right-tree" src={RTree} alt="right-tree" />

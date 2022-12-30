@@ -1,24 +1,24 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import eatInfoState from "../../recoil/atoms/eat/eatInfoState";
 import InfoButton from "./InfoButton";
+import { useRecoilState } from "recoil";
+import isInfoEditableState from "../../recoil/atoms/eat/isInfoEditableState";
 
-function EatInfo({ onEditMode, info }) {
-  const [eatInfo, setEatInfo] = useRecoilState(eatInfoState);
-  const [isPastDeadline, setIsPastDeadline] = useState(false);
+function EatInfo({ info }) {
+  const [isEditMode, setIsEditMode] = useRecoilState(isInfoEditableState);
+  const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
     // const now = new Date();
     // if (now - 1000 < eatInfo.date) {
     //   setIsPastDeadline(false);
     // }
-  }, [onEditMode, eatInfo]);
+  }, [isEditMode, info]);
 
   return (
     <Section>
       <Info>
-        <TitleBox status={isPastDeadline}>
+        <TitleBox status={isClosed}>
           <div className="info-header" id="id">
             번호
           </div>
@@ -43,33 +43,29 @@ function EatInfo({ onEditMode, info }) {
         </TitleBox>
         <InputBox>
           <div className="info" id="id">
-            {eatInfo.id}
+            {info.id}
           </div>
           <div className="info" id="title">
-            {eatInfo.title}
+            {info.title}
           </div>
           <div className="info" id="date">
-            {eatInfo.date}
+            {info.date}
           </div>
           <div className="info" id="time">
-            {eatInfo.date}
+            {info.date}
           </div>
           <div className="info" id="location">
-            {eatInfo.location}
+            {info.location}
           </div>
           <div className="info" id="participants">
-            {eatInfo.numParticipant}명
+            {info.numParticipant}명
           </div>
           <div className="info" id="author">
-            {eatInfo.authorName}
+            {info.authorName}
           </div>
         </InputBox>
       </Info>
-      <InfoButton
-        isAuthor={eatInfo.isAuthor}
-        isPastDeadline={isPastDeadline}
-        isApplied={eatInfo.isApplied}
-      />
+      <InfoButton isClosed={isClosed} info={info} />
     </Section>
   );
 }
