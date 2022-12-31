@@ -1,29 +1,25 @@
-import PopUp from "./PopUp";
-import InfoButtonStyle from "../../styles/eat/InfoButtonStyle";
 import styled from "styled-components";
-import { useState } from "react";
-import { useRecoilState } from "recoil";
-import isInfoEditableState from "../../recoil/atoms/eat/isInfoEditableState";
+import PopUp from "./PopUp";
+import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
+import { useSetRecoilState } from "recoil";
+import isPopUpOpenState from "../../recoil/atoms/eat/isPopUpOpenState";
+import { useState } from "react";
 
 function AuthorButton({ info }) {
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
-  const [editableInfo, setEditableInfo] = useRecoilState(isInfoEditableState);
+  const [open, setOpen] = useState(false);
+  const setIsPopUpOpen = useSetRecoilState(isPopUpOpenState);
 
   return (
     <>
       <Button>
-        <div
-          className="edit-button"
-          onClick={() => {
-            setEditableInfo(info);
-          }}
-        >
+        <div className="edit-button" onClick={() => {}}>
           {EAT_INFO_BUTTONS.KOREAN["UPDATE"]}
         </div>
         <div
           className="delete-button"
           onClick={() => {
+            setOpen(true);
             setIsPopUpOpen(true);
           }}
         >
@@ -36,8 +32,8 @@ function AuthorButton({ info }) {
         isAuthor={info.isAuthor}
         infoTitle={info.title}
         infoNumParticipant={info.numParticipant}
-        open={isPopUpOpen}
-        setOpen={setIsPopUpOpen}
+        open={open}
+        setOpen={setOpen}
       >
         <DeleteReason placeholder="삭제 사유를 작성해주세요."></DeleteReason>
       </PopUp>
@@ -45,7 +41,7 @@ function AuthorButton({ info }) {
   );
 }
 
-const Button = styled(InfoButtonStyle)`
+const Button = styled(PlanButtonStyle)`
   flex-direction: column;
 
   div {

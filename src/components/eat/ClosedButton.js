@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import InfoButtonStyle from "../../styles/eat/InfoButtonStyle";
+import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 
 function ClosedButton() {
   return <Button>마감</Button>;
 }
 
-const Button = styled(InfoButtonStyle)`
+const Button = styled(PlanButtonStyle)`
   background-color: ${(props) => props.theme.grey};
 `;
 

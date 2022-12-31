@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import EatInfo from "../components/eat/EatInfo";
+import Plan from "../components/eat/Plan";
 import Layout from "../components/layout/Layout";
 import plusIcon from "../images/Icon feather-plus-circle@2x.webp";
 import LTree from "../images/L_tree@2x.webp";
@@ -67,7 +67,7 @@ function Eat() {
         date: "",
         location: "정문",
         numParticipant: "4",
-        participants: ["김수민", "경주원", "김종준"],
+        participants: ["김수민", "경주원", "김종준", "김정은"],
         authorName: "김현지",
         authorId: "2",
         isAuthor: true,
@@ -85,7 +85,7 @@ function Eat() {
         </TitleBox>
 
         {eatInfoArray.map((info) => (
-          <EatInfo info={info} key={info.id} />
+          <Plan info={info} key={info.id} />
         ))}
 
         <img className="left-tree" src={LTree} alt="left-tree" />

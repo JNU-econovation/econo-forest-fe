@@ -1,16 +1,21 @@
 import styled from "styled-components";
-import InfoButtonStyle from "../../styles/eat/InfoButtonStyle";
-import { useState } from "react";
+import { useSetRecoilState } from "recoil";
+
 import PopUp from "./PopUp";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
+import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
+import isPopUpOpenState from "../../recoil/atoms/eat/isPopUpOpenState";
+import { useState } from "react";
 
 function CancelButton({ info }) {
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const setIsPopUpOpen = useSetRecoilState(isPopUpOpenState);
 
   return (
     <>
       <Button
         onClick={() => {
+          setOpen(true);
           setIsPopUpOpen(true);
         }}
       >
@@ -22,14 +27,14 @@ function CancelButton({ info }) {
         isAuthor={info.isAuthor}
         infoTitle={info.title}
         infoNumParticipant={info.numParticipant}
-        open={isPopUpOpen}
-        setOpen={setIsPopUpOpen}
+        open={open}
+        setOpen={setOpen}
       />
     </>
   );
 }
 
-const Button = styled(InfoButtonStyle)`
+const Button = styled(PlanButtonStyle)`
   background-color: ${(props) => props.theme.yellow};
   cursor: pointer;
 `;

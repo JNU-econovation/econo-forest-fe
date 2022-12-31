@@ -3,7 +3,7 @@ import ClosedButton from "./ClosedButton";
 import ParticipateButton from "./ParticipateButton";
 import CancelButton from "./CancelButton";
 
-function InfoButton({ isClosed, info }) {
+function PlanButton({ isClosed, info }) {
   if (isClosed !== false) {
     return <ClosedButton />;
   } else if (info.isAuthor !== false) {
@@ -15,4 +15,4 @@ function InfoButton({ isClosed, info }) {
   }
 }
 
-export default InfoButton;
+export default PlanButton;

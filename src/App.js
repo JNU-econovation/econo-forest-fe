@@ -37,6 +37,11 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
   }
   
+  input {
+    padding: 0;
+    margin: 0;
+  }
+  
   * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;

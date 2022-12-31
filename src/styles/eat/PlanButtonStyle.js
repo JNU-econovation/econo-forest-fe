@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const InfoButtonStyle = styled.div`
+const PlanButtonStyle = styled.div`
   margin-left: 30px;
 
   display: flex;
@@ -14,4 +14,4 @@ const InfoButtonStyle = styled.div`
   color: ${(props) => props.theme.highlightColor};
 `;
 
-export default InfoButtonStyle;
+export default PlanButtonStyle;

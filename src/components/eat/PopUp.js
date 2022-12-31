@@ -1,6 +1,8 @@
 import { Backdrop } from "@mui/material";
 import { IoCloseOutline } from "react-icons/io5";
 import styled from "styled-components";
+import { useSetRecoilState } from "recoil";
+import isPopUpOpenState from "../../recoil/atoms/eat/isPopUpOpenState";
 
 function PopUp({
   type,
@@ -12,6 +14,8 @@ function PopUp({
   infoNumParticipant,
   children,
 }) {
+  const setIsPopUpOpen = useSetRecoilState(isPopUpOpenState);
+
   return (
     <Backdrop sx={{ color: "#fff" }} open={open}>
       <PopUpSection>
@@ -21,6 +25,7 @@ function PopUp({
             className="pop-up-close"
             onClick={() => {
               setOpen(false);
+              setIsPopUpOpen(false);
             }}
           >
             <IoCloseOutline />
