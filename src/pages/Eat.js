@@ -78,31 +78,27 @@ function Eat() {
 
   return (
     <Layout>
-      <Section>
-        <TitleBox>
-          <div className="title">밥먹어요</div>
-          <img className="plus-icon" src={plusIcon} alt="plus-icon" />
-        </TitleBox>
+      <EatLayout>
+        <Section>
+          <TitleBox>
+            <div className="title">밥먹어요</div>
+            <img className="plus-icon" src={plusIcon} alt="plus-icon" />
+          </TitleBox>
 
-        {eatInfoArray.map((info) => (
-          <Plan info={info} key={info.id} />
-        ))}
+          {eatInfoArray.map((info) => (
+            <Plan info={info} key={info.id} />
+          ))}
 
-        <img className="left-tree" src={LTree} alt="left-tree" />
-        <img className="right-tree" src={RTree} alt="right-tree" />
-      </Section>
+          <img className="left-tree" src={LTree} alt="left-tree" />
+          <img className="right-tree" src={RTree} alt="right-tree" />
+        </Section>
+      </EatLayout>
     </Layout>
   );
 }
 
-const Section = styled.div`
-  padding: 0 7%;
+const EatLayout = styled.div`
   background-color: ${(props) => props.theme.green};
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
   position: relative;
   z-index: 0;
@@ -123,6 +119,20 @@ const Section = styled.div`
   .left-tree {
     left: 2.5%;
   }
+`;
+
+const Section = styled.div`
+  width: 100%;
+  height: 100%;
+
+  padding: 20px 7%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  overflow-y: auto;
 `;
 
 const TitleBox = styled.div`
