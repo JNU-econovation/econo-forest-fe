@@ -5,6 +5,8 @@ import PopUp from "./PopUp";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
 import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
+import PopUpInfo from "../../styles/eat/PopUpInfo";
+
 import { useState } from "react";
 
 function CancelButton({ info }) {
@@ -25,11 +27,22 @@ function CancelButton({ info }) {
         type={EAT_INFO_BUTTONS.KOREAN["CANCEL"]}
         title={info.title + "에 불참하시겠습니까?"}
         isAuthor={info.isAuthor}
-        infoTitle={info.title}
-        infoNumParticipant={info.numParticipant}
         open={open}
         setOpen={setOpen}
-      />
+      >
+        <PopUpInfo>
+          <div className="title">날짜</div>
+          <div className="text">{info.authorName}</div>
+        </PopUpInfo>
+        <PopUpInfo>
+          <div className="title">장소</div>
+          <div className="text">{info.location}</div>
+        </PopUpInfo>
+        <PopUpInfo>
+          <div className="title">글쓴이</div>
+          <div className="text">{info.authorName}</div>
+        </PopUpInfo>
+      </PopUp>
     </>
   );
 }

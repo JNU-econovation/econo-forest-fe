@@ -1,19 +1,11 @@
 import { Backdrop } from "@mui/material";
+import React from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
 
-function PopUp({
-  type,
-  title,
-  open,
-  setOpen,
-  isAuthor,
-  infoTitle,
-  infoNumParticipant,
-  children,
-}) {
+function PopUp({ type, title, open, setOpen, isAuthor, children }) {
   const setIsPopUpOpen = useSetRecoilState(isPopUpOpenState);
 
   return (
@@ -32,14 +24,6 @@ function PopUp({
           </div>
         </TopBox>
         <Title>{title}</Title>
-        <Info>
-          <span className="title">제목</span>
-          <div className="info">{infoTitle}</div>
-        </Info>
-        <Info>
-          <span className="title">인원</span>
-          <div className="info">{infoNumParticipant}</div>
-        </Info>
         {children}
         <Button isAuthor={isAuthor}>{type}</Button>
       </PopUpSection>
@@ -84,20 +68,6 @@ const Title = styled.div`
   font-weight: bold;
 `;
 
-const Info = styled.div`
-  display: flex;
-  margin-bottom: 10px;
-  font-size: 16px;
-  .title {
-    color: ${(props) => props.theme.highlightColor};
-    margin-right: 10px;
-  }
-
-  .info {
-    color: ${(props) => props.theme.additiveColor};
-  }
-`;
-
 const Button = styled.div`
   width: 100px;
   height: 35px;
@@ -116,4 +86,4 @@ const Button = styled.div`
   font-size: 16px;
 `;
 
-export default PopUp;
+export default React.memo(PopUp);

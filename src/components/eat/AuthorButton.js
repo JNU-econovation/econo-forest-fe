@@ -5,21 +5,29 @@ import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
 import { useSetRecoilState } from "recoil";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
 import { useState } from "react";
+import PlanEditor from "./PlanEditor";
 
 function AuthorButton({ info }) {
-  const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const setIsPopUpOpen = useSetRecoilState(isPopUpOpenState);
 
   return (
     <>
       <Button>
-        <div className="edit-button" onClick={() => {}}>
+        <div
+          className="edit-button"
+          onClick={() => {
+            setEditOpen(true);
+            setIsPopUpOpen(true);
+          }}
+        >
           {EAT_INFO_BUTTONS.KOREAN["UPDATE"]}
         </div>
         <div
           className="delete-button"
           onClick={() => {
-            setOpen(true);
+            setDeleteOpen(true);
             setIsPopUpOpen(true);
           }}
         >
@@ -28,12 +36,19 @@ function AuthorButton({ info }) {
       </Button>
       <PopUp
         type={EAT_INFO_BUTTONS.KOREAN["DELETE"]}
-        title="게시글을 삭제하시겠습니까?"
+        title={info.title + "을 수정하시겠습니까?"}
         isAuthor={info.isAuthor}
-        infoTitle={info.title}
-        infoNumParticipant={info.numParticipant}
-        open={open}
-        setOpen={setOpen}
+        open={editOpen}
+        setOpen={setEditOpen}
+      >
+        <PlanEditor></PlanEditor>
+      </PopUp>
+      <PopUp
+        type={EAT_INFO_BUTTONS.KOREAN["DELETE"]}
+        title={info.title + "을 삭제하시겠습니까?"}
+        isAuthor={info.isAuthor}
+        open={deleteOpen}
+        setOpen={setDeleteOpen}
       >
         <DeleteReason placeholder="삭제 사유를 작성해주세요."></DeleteReason>
       </PopUp>
