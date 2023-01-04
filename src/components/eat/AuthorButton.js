@@ -1,11 +1,12 @@
+import { useState } from "react";
 import styled from "styled-components";
-import PopUp from "./PopUp";
+import { useSetRecoilState } from "recoil";
+
+import EditModal from "./EditModal";
+import NonAuthorModal from "./NonEditModal";
 import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
-import { useSetRecoilState } from "recoil";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
-import { useState } from "react";
-import PlanEditor from "./PlanEditor";
 
 function AuthorButton({ info }) {
   const [editOpen, setEditOpen] = useState(false);
@@ -34,24 +35,22 @@ function AuthorButton({ info }) {
           {EAT_INFO_BUTTONS.KOREAN["DELETE"]}
         </div>
       </Button>
-      <PopUp
-        type={EAT_INFO_BUTTONS.KOREAN["DELETE"]}
+      <EditModal
+        modalType={EAT_INFO_BUTTONS.KOREAN["UPDATE"]}
         title={info.title + "을 수정하시겠습니까?"}
         isAuthor={info.isAuthor}
         open={editOpen}
         setOpen={setEditOpen}
-      >
-        <PlanEditor></PlanEditor>
-      </PopUp>
-      <PopUp
-        type={EAT_INFO_BUTTONS.KOREAN["DELETE"]}
+      />
+      <NonAuthorModal
+        modalType={EAT_INFO_BUTTONS.KOREAN["DELETE"]}
         title={info.title + "을 삭제하시겠습니까?"}
         isAuthor={info.isAuthor}
         open={deleteOpen}
         setOpen={setDeleteOpen}
       >
-        <DeleteReason placeholder="삭제 사유를 작성해주세요."></DeleteReason>
-      </PopUp>
+        <DeleteReason placeholder="삭제 사유를 작성해주세요." />
+      </NonAuthorModal>
     </>
   );
 }

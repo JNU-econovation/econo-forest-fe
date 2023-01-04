@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
+import { useState } from "react";
 
-import PopUp from "./PopUp";
+import NonAuthorModal from "./NonEditModal";
 import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
-import { useState } from "react";
 
 function ParticipateButton({ info }) {
   const [open, setOpen] = useState(false);
@@ -21,8 +21,8 @@ function ParticipateButton({ info }) {
       >
         {EAT_INFO_BUTTONS.KOREAN["PARTICIPATE"]}
       </Button>
-      <PopUp
-        type={EAT_INFO_BUTTONS.KOREAN["PARTICIPATE"]}
+      <NonAuthorModal
+        modalType={EAT_INFO_BUTTONS.KOREAN["PARTICIPATE"]}
         title={info.title + "에 참여하시겠습니까?"}
         isAuthor={info.isAuthor}
         infoTitle={info.title}

@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
+import { useState } from "react";
 
-import PopUp from "./PopUp";
+import NonAuthorModal from "./NonEditModal";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
 import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
-import PopUpInfo from "../../styles/eat/PopUpInfo";
-
-import { useState } from "react";
+import ModalInfo from "../../styles/eat/ModalInfo";
 
 function CancelButton({ info }) {
   const [open, setOpen] = useState(false);
@@ -23,26 +22,26 @@ function CancelButton({ info }) {
       >
         {EAT_INFO_BUTTONS.KOREAN["CANCEL"]}
       </Button>
-      <PopUp
-        type={EAT_INFO_BUTTONS.KOREAN["CANCEL"]}
+      <NonAuthorModal
+        modalType={EAT_INFO_BUTTONS.KOREAN["CANCEL"]}
         title={info.title + "에 불참하시겠습니까?"}
         isAuthor={info.isAuthor}
         open={open}
         setOpen={setOpen}
       >
-        <PopUpInfo>
+        <ModalInfo>
           <div className="title">날짜</div>
           <div className="text">{info.authorName}</div>
-        </PopUpInfo>
-        <PopUpInfo>
+        </ModalInfo>
+        <ModalInfo>
           <div className="title">장소</div>
           <div className="text">{info.location}</div>
-        </PopUpInfo>
-        <PopUpInfo>
+        </ModalInfo>
+        <ModalInfo>
           <div className="title">글쓴이</div>
           <div className="text">{info.authorName}</div>
-        </PopUpInfo>
-      </PopUp>
+        </ModalInfo>
+      </NonAuthorModal>
     </>
   );
 }

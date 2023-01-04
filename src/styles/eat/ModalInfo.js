@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const PopUpInfo = styled.div`
+const ModalInfo = styled.div`
   display: flex;
   margin-bottom: 10px;
   font-size: 16px;
@@ -15,4 +15,4 @@ const PopUpInfo = styled.div`
   }
 `;
 
-export default PopUpInfo;
+export default ModalInfo;
