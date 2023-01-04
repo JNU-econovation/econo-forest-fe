@@ -3,7 +3,7 @@ import PopUp from "./PopUp";
 import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
 import { useSetRecoilState } from "recoil";
-import isPopUpOpenState from "../../recoil/atoms/eat/isPopUpOpenState";
+import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
 import { useState } from "react";
 
 function AuthorButton({ info }) {

@@ -2,7 +2,7 @@ import PlanInfoStyle from "../../styles/eat/PlanInfoStyle";
 import styled, { css } from "styled-components";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
-import isPopUpOpenState from "../../recoil/atoms/eat/isPopUpOpenState";
+import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
 
 function PlanInfoView({ info }) {
   const [isHover, setIsHover] = useState(false);

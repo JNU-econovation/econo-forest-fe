@@ -125,11 +125,10 @@ const Section = styled.div`
   width: 100%;
   height: 100%;
 
-  padding: 20px 7%;
+  padding: 80px 7%;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   overflow-y: auto;

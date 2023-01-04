@@ -2,7 +2,7 @@ import { Backdrop } from "@mui/material";
 import { IoCloseOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
-import isPopUpOpenState from "../../recoil/atoms/eat/isPopUpOpenState";
+import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
 
 function PopUp({
   type,

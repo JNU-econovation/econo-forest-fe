@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
-const eatInfoState = atom({
-  key: "eatInfoState",
+const eatPlanState = atom({
+  key: "eatPlanState",
   default: {
     id: "",
     title: "",
@@ -16,4 +16,4 @@ const eatInfoState = atom({
   },
 });
 
-export default eatInfoState;
+export default eatPlanState;
