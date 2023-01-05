@@ -8,7 +8,7 @@ import RTree from "../images/R_tree@2x.webp";
 import { useEffect, useState } from "react";
 
 function Eat() {
-  const [eatInfoArray, setEatInfoArray] = useState([]);
+  const [eatPlanArray, setEatPlanArray] = useState([]);
 
   // const info = {
   //   id: "1",
@@ -24,7 +24,7 @@ function Eat() {
   // };
 
   useEffect(() => {
-    setEatInfoArray([
+    setEatPlanArray([
       {
         id: "1",
         title: "하이하이 밥 먹을 사람",
@@ -85,8 +85,8 @@ function Eat() {
             <img className="plus-icon" src={plusIcon} alt="plus-icon" />
           </TitleBox>
 
-          {eatInfoArray.map((info) => (
-            <Plan info={info} key={info.id} />
+          {eatPlanArray.map((planInfo) => (
+            <Plan planInfo={planInfo} key={planInfo.id} />
           ))}
 
           <img className="left-tree" src={LTree} alt="left-tree" />

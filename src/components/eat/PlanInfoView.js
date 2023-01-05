@@ -1,5 +1,5 @@
 import PlanInfoStyle from "../../styles/eat/PlanInfoStyle";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
@@ -25,8 +25,11 @@ function PlanInfoView({ info }) {
       >
         {info.numParticipant}
 
-        {isHover && !isPopUpOpen ? (
-          <ParticipantsBox numParticipant={info.numParticipant}>
+        {!isPopUpOpen ? (
+          <ParticipantsBox
+            active={isHover}
+            numParticipant={info.numParticipant}
+          >
             {info.participants.map((participant) => (
               <Participant>{participant}</Participant>
             ))}
@@ -49,8 +52,20 @@ const Section = styled(PlanInfoStyle)`
     `}
 `;
 
+const participantAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 100%;
+  }
+`;
+
 const ParticipantsBox = styled.div`
-  width: 150px;
+  width: 100%;
+
+  visibility: ${(props) => (!props.active ? "hidden" : "visible")};
   display: flex;
   flex-direction: column;
 
@@ -61,6 +76,12 @@ const ParticipantsBox = styled.div`
 
   background-color: ${(props) => props.theme.white};
   border-radius: 0 0 10px 10px;
+
+  ${(props) =>
+    props.active &&
+    css`
+      animation: ${participantAnimation} 0.3s ease-in-out;
+    `}
 `;
 
 const Participant = styled.div`
