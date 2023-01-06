@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { useState } from "react";
 
-import NonAuthorModal from "./NonEditModal";
+import NonEditModal from "./NonEditModal";
 import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
+import ModalInfo from "../../styles/eat/ModalInfo";
 
 function ParticipateButton({ info }) {
   const [open, setOpen] = useState(false);
@@ -21,7 +22,7 @@ function ParticipateButton({ info }) {
       >
         {EAT_INFO_BUTTONS.KOREAN["PARTICIPATE"]}
       </Button>
-      <NonAuthorModal
+      <NonEditModal
         modalType={EAT_INFO_BUTTONS.KOREAN["PARTICIPATE"]}
         title={info.title + "에 참여하시겠습니까?"}
         isAuthor={info.isAuthor}
@@ -29,7 +30,28 @@ function ParticipateButton({ info }) {
         infoNumParticipant={info.numParticipant}
         open={open}
         setOpen={setOpen}
-      />
+      >
+        <ModalInfo>
+          <div className="title">날짜</div>
+          <div className="text">{info.authorName}</div>
+        </ModalInfo>
+        <ModalInfo>
+          <div className="title">장소</div>
+          <div className="text">{info.location}</div>
+        </ModalInfo>
+        <ModalInfo>
+          <div className="title">날짜</div>
+          <div className="text">{info.date}</div>
+        </ModalInfo>
+        <ModalInfo>
+          <div className="title">시간</div>
+          <div className="text">{info.date}</div>
+        </ModalInfo>
+        <ModalInfo>
+          <div className="title">글쓴이</div>
+          <div className="text">{info.authorName}</div>
+        </ModalInfo>
+      </NonEditModal>
     </>
   );
 }

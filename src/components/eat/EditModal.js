@@ -4,11 +4,13 @@ import { FaCalendarAlt } from "react-icons/fa";
 
 import CustomDatePicker from "../common/CustomDatePicker";
 import ModalLayout from "./ModalLayout";
+import CustomTimePicker from "../common/CustomTimePicker";
 
 function EditModal({ modalType, title, open, setOpen }) {
   const [date, setDate] = useState(new Date());
   const [pickerDate, setPickerDate] = useState(new Date());
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
 
   useEffect(() => {
     setPickerDate(date);
@@ -52,9 +54,29 @@ function EditModal({ modalType, title, open, setOpen }) {
           <div className="title" id="time">
             시간
           </div>
-          <div className="input" id="time">
-            16:00
-          </div>
+          <TimeInput
+            onMouseOver={() => {
+              setIsTimePickerOpen(true);
+            }}
+            onMouseOut={() => {
+              setIsTimePickerOpen(false);
+            }}
+          >
+            <div className="input" id="time">
+              {`${
+                date.getHours().toString().length === 1
+                  ? "0" + date.getHours()
+                  : date.getHours()
+              }:${
+                date.getMinutes().toString().length === 1
+                  ? "0" + date.getMinutes()
+                  : date.getMinutes()
+              }`}
+            </div>
+            {isTimePickerOpen ? (
+              <CustomTimePicker setDate={setDate} sx={{ padding: "5px 0" }} />
+            ) : undefined}
+          </TimeInput>
         </EditRows>
 
         <EditRows>
@@ -83,6 +105,7 @@ function EditModal({ modalType, title, open, setOpen }) {
           <div
             className="button button-apply"
             onClick={() => {
+              console.log(pickerDate);
               setDate(pickerDate);
               setIsDatePickerOpen(false);
             }}
@@ -146,6 +169,11 @@ const EditRows = styled.div`
       cursor: pointer;
     }
   }
+`;
+
+const TimeInput = styled.div`
+  height: 100%;
+  position: relative;
 `;
 
 const ButtonSection = styled.div`

@@ -1,7 +1,6 @@
 import DatePicker from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import styled from "styled-components";
-// import "../../styles/common/CustomDatePicker.css";
 import leftArrow from "../../images/LeftArrow.webp";
 import rightArrow from "../../images/RightArrow.webp";
 
@@ -17,7 +16,6 @@ function CustomDatePicker({ date, setDate }) {
         disabledKeyboardNavigation
         inline
         dateFormat="yyyy.MM.dd"
-        nextMonthAriaLabel="dfd"
         onChange={(date) => setDate(date)}
         renderCustomHeader={({ date, decreaseMonth, increaseMonth }) => {
           return (

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 import { useState } from "react";
 
-import NonAuthorModal from "./NonEditModal";
+import NonEditModal from "./NonEditModal";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
 import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
@@ -22,7 +22,7 @@ function CancelButton({ info }) {
       >
         {EAT_INFO_BUTTONS.KOREAN["CANCEL"]}
       </Button>
-      <NonAuthorModal
+      <NonEditModal
         modalType={EAT_INFO_BUTTONS.KOREAN["CANCEL"]}
         title={info.title + "에 불참하시겠습니까?"}
         isAuthor={info.isAuthor}
@@ -38,10 +38,18 @@ function CancelButton({ info }) {
           <div className="text">{info.location}</div>
         </ModalInfo>
         <ModalInfo>
+          <div className="title">날짜</div>
+          <div className="text">{info.date}</div>
+        </ModalInfo>
+        <ModalInfo>
+          <div className="title">시간</div>
+          <div className="text">{info.date}</div>
+        </ModalInfo>
+        <ModalInfo>
           <div className="title">글쓴이</div>
           <div className="text">{info.authorName}</div>
         </ModalInfo>
-      </NonAuthorModal>
+      </NonEditModal>
     </>
   );
 }
