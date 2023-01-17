@@ -1,3 +1,5 @@
+import { keyframes } from "styled-components";
+
 const Theme = {
   orange: "#ffa77b",
   yellow: "#ffd878",
@@ -17,6 +19,16 @@ const Theme = {
 
   logoFont: "'Elice Digital Baeum', sans-serif",
   mainFont: "'Apple SD Gothic Neo', sans-serif",
+
+  opacityAnimationKeyframe: keyframes`
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 100%;
+  }
+`,
 };
 
 export default Theme;

@@ -5,12 +5,14 @@ import { FaCalendarAlt } from "react-icons/fa";
 import CustomDatePicker from "../common/CustomDatePicker";
 import ModalLayout from "./ModalLayout";
 import CustomTimePicker from "../common/CustomTimePicker";
+import LocationPicker from "./LocationPicker";
 
 function EditModal({ modalType, title, open, setOpen }) {
   const [date, setDate] = useState(new Date());
   const [pickerDate, setPickerDate] = useState(new Date());
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
+  const [isLocationPickerOpen, setIsLocationPickerOpen] = useState(false);
 
   useEffect(() => {
     setPickerDate(date);
@@ -54,7 +56,7 @@ function EditModal({ modalType, title, open, setOpen }) {
           <div className="title" id="time">
             시간
           </div>
-          <TimeInput
+          <HoverInput
             onMouseOver={() => {
               setIsTimePickerOpen(true);
             }}
@@ -74,18 +76,37 @@ function EditModal({ modalType, title, open, setOpen }) {
               }`}
             </div>
             {isTimePickerOpen ? (
-              <CustomTimePicker setDate={setDate} sx={{ padding: "5px 0" }} />
+              <CustomTimePicker
+                active={isTimePickerOpen}
+                setDate={setDate}
+                sx={{ padding: "5px 0" }}
+              />
             ) : undefined}
-          </TimeInput>
+          </HoverInput>
         </EditRows>
 
         <EditRows>
           <div className="title" id="location">
             장소
           </div>
-          <div className="input" id="location">
-            후문
-          </div>
+          <HoverInput
+            onMouseOver={() => {
+              setIsLocationPickerOpen(true);
+            }}
+            onMouseOut={() => {
+              setIsLocationPickerOpen(false);
+            }}
+          >
+            <div className="input" id="location">
+              후문
+            </div>
+            {isLocationPickerOpen ? (
+              <LocationPicker
+                active={isLocationPickerOpen}
+                sx={{ padding: "5px 0" }}
+              />
+            ) : undefined}
+          </HoverInput>
         </EditRows>
       </ModalLayout>
     );
@@ -135,13 +156,17 @@ const EditRows = styled.div`
   .input-textarea {
     width: 200px;
     height: 35px;
-    padding: 8px 10px;
+    padding: 8px;
 
     resize: none;
     border: 1px solid #aaa;
     border-radius: 3px;
 
     font-size: 15px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .input {
@@ -171,7 +196,7 @@ const EditRows = styled.div`
   }
 `;
 
-const TimeInput = styled.div`
+const HoverInput = styled.div`
   height: 100%;
   position: relative;
 `;

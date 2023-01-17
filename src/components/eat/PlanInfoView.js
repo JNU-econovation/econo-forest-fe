@@ -1,5 +1,5 @@
 import PlanInfoStyle from "../../styles/eat/PlanInfoStyle";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { useState } from "react";
 import { useRecoilValue } from "recoil";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
@@ -52,16 +52,6 @@ const Section = styled(PlanInfoStyle)`
     `}
 `;
 
-const participantAnimation = keyframes`
-  0% {
-    opacity: 0;
-  }
-  
-  100% {
-    opacity: 100%;
-  }
-`;
-
 const ParticipantsBox = styled.div`
   width: 100%;
 
@@ -80,7 +70,7 @@ const ParticipantsBox = styled.div`
   ${(props) =>
     props.active &&
     css`
-      animation: ${participantAnimation} 0.3s ease-in-out;
+      animation: ${props.theme.opacityAnimationKeyframe} 0.3s ease-in-out;
     `}
 `;
 

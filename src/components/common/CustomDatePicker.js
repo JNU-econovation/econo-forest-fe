@@ -123,6 +123,7 @@ const Section = styled.div`
     align-items: center;
 
     font-size: 12px;
+    cursor: pointer;
   }
 
   .react-datepicker__day--selected {

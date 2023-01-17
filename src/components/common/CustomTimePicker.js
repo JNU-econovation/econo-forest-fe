@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-function CustomTimePicker({ setDate, sx }) {
+function CustomTimePicker({ active, setDate, sx }) {
   const HOURS = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
     21, 22, 23,
@@ -39,7 +39,7 @@ function CustomTimePicker({ setDate, sx }) {
 
   return (
     <Section style={sx}>
-      <ButtonsBox>
+      <ButtonsBox active={active}>
         <ScrollSection>
           {["", ...HOURS, ""].map((hour) => (
             <Button onClick={onHourClick}>
@@ -63,10 +63,12 @@ const Section = styled.div`
   width: 100%;
 
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 
   position: absolute;
+
+  z-index: 1;
 `;
 
 const ButtonsBox = styled.div`
@@ -81,6 +83,12 @@ const ButtonsBox = styled.div`
   background-color: ${(props) => props.theme.white};
   border-radius: 5px;
   border: 1px solid #aaa;
+
+  ${(props) =>
+    props.active &&
+    css`
+      animation: ${props.theme.opacityAnimationKeyframe} 0.3s ease-in-out;
+    `}
 `;
 
 const ScrollSection = styled.div`
