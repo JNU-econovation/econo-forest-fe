@@ -35,7 +35,7 @@ const MenuDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: ${props => props.theme.logoFont};
+  font-family: ${(props) => props.theme.logoFont};
   font-size: ${(props) => props.theme.subtitleFontSize};
 `;
 

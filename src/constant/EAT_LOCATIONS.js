@@ -1,0 +1,31 @@
+const ARRAY = [
+  "MAIN_GATE",
+  "BACK_GATE",
+  "BUSINESS_GATE",
+  "ENGINEERING_GATE",
+  "ART_GATE",
+];
+
+const EAT_LOCATION = {
+  MAIN_GATE: "MAIN_GATE",
+  BACK_GATE: "BACK_GATE",
+  BUSINESS_GATE: "BUSINESS_GATE",
+  ENGINEERING_GATE: "ENGINEERING_GATE",
+  ART_GATE: "ART_GATE",
+};
+
+const KOREAN = {
+  MAIN_GATE: "정문",
+  BACK_GATE: "후문",
+  BUSINESS_GATE: "상대",
+  ENGINEERING_GATE: "공대",
+  ART_GATE: "예대",
+};
+
+Object.freeze(EAT_LOCATION);
+Object.freeze(KOREAN);
+
+const EAT_LOCATIONS = { ...EAT_LOCATION, KOREAN, ARRAY };
+Object.freeze(EAT_LOCATIONS);
+
+export default EAT_LOCATIONS;
