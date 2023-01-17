@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 import Plan from "../components/eat/Plan";
 import Layout from "../components/layout/Layout";
-import plusIcon from "../images/Icon feather-plus-circle@2x.webp";
 import LTree from "../images/L_tree@2x.webp";
 import RTree from "../images/R_tree@2x.webp";
 import { useEffect, useState } from "react";
+import Title from "../components/eat/Title";
 
 function Eat() {
   const [eatPlanArray, setEatPlanArray] = useState([]);
@@ -80,10 +80,7 @@ function Eat() {
     <Layout>
       <EatLayout>
         <Section>
-          <TitleBox>
-            <div className="title">밥먹어요</div>
-            <img className="plus-icon" src={plusIcon} alt="plus-icon" />
-          </TitleBox>
+          <Title />
 
           {eatPlanArray.map((planInfo) => (
             <Plan planInfo={planInfo} key={planInfo.id} />
@@ -132,29 +129,6 @@ const Section = styled.div`
   align-items: center;
 
   overflow-y: auto;
-`;
-
-const TitleBox = styled.div`
-  width: 100%;
-  padding-bottom: 25px;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-
-  color: ${(props) => props.theme.brightColor};
-  font-family: ${(props) => props.theme.logoFont};
-  font-size: ${(props) => props.theme.titleFontSize};
-
-  .title {
-    padding-right: 9px;
-  }
-
-  .plus-icon {
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
-  }
 `;
 
 export default Eat;

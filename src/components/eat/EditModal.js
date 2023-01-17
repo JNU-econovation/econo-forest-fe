@@ -108,6 +108,7 @@ function EditModal({ modalType, title, open, setOpen }) {
             ) : undefined}
           </HoverInput>
         </EditRows>
+        <Button>{modalType}</Button>
       </ModalLayout>
     );
   } else {
@@ -199,6 +200,23 @@ const EditRows = styled.div`
 const HoverInput = styled.div`
   height: 100%;
   position: relative;
+`;
+
+const Button = styled.div`
+  width: 100px;
+  height: 35px;
+  margin: 20px auto 0 auto;
+
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  color: ${(props) => props.theme.white};
+  background-color: ${(props) => props.theme.orange};
+  font-size: 16px;
 `;
 
 const ButtonSection = styled.div`

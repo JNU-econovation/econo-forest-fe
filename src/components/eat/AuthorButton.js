@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSetRecoilState } from "recoil";
 
 import EditModal from "./EditModal";
-import NonAuthorModal from "./NonEditModal";
+import NonEditModal from "./NonEditModal";
 import PlanButtonStyle from "../../styles/eat/PlanButtonStyle";
 import EAT_INFO_BUTTONS from "../../constant/EAT_INFO_BUTTONS";
 import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
@@ -38,11 +38,10 @@ function AuthorButton({ info }) {
       <EditModal
         modalType={EAT_INFO_BUTTONS.KOREAN["UPDATE"]}
         title={info.title + "을 수정하시겠습니까?"}
-        isAuthor={info.isAuthor}
         open={editOpen}
         setOpen={setEditOpen}
       />
-      <NonAuthorModal
+      <NonEditModal
         modalType={EAT_INFO_BUTTONS.KOREAN["DELETE"]}
         title={info.title + "을 삭제하시겠습니까?"}
         isAuthor={info.isAuthor}
@@ -50,7 +49,7 @@ function AuthorButton({ info }) {
         setOpen={setDeleteOpen}
       >
         <DeleteReason placeholder="삭제 사유를 작성해주세요." />
-      </NonAuthorModal>
+      </NonEditModal>
     </>
   );
 }

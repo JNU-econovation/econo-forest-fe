@@ -38,6 +38,11 @@ const ModalSection = styled.div`
   position: relative;
   z-index: 1;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
   background-color: ${(props) => props.theme.white};
   border-radius: 10px;
 `;

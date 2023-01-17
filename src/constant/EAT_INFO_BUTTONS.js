@@ -3,6 +3,7 @@ const EAT_INFO_BUTTON = {
   UPDATE: "UPDATE",
   PARTICIPATE: "PARTICIPATE",
   CANCEL: "CANCEL",
+  CREATE: "CREATE",
 };
 
 const KOREAN = {
@@ -10,6 +11,7 @@ const KOREAN = {
   UPDATE: "수정",
   PARTICIPATE: "참여",
   CANCEL: "불참",
+  CREATE: "생성",
 };
 
 Object.freeze(EAT_INFO_BUTTON);
