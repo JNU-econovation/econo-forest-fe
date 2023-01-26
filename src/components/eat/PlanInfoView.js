@@ -31,7 +31,7 @@ function PlanInfoView({ info }) {
             numParticipant={info.numParticipant}
           >
             {info.participants.map((participant) => (
-              <Participant>{participant}</Participant>
+              <Participant key={participant}>{participant}</Participant>
             ))}
           </ParticipantsBox>
         ) : undefined}

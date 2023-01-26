@@ -16,7 +16,7 @@ function Header() {
   ];
   return (
     <MenuBar>
-      <Link style={{ width: "13%", margin: "auto 0" }} to={"/main"}>
+      <Link style={{ width: "13%", margin: "auto 0" }} to={routes.home}>
         <MainLogo src={MainLogoSrc}></MainLogo>
       </Link>
       <MenuDiv>

@@ -1,11 +1,38 @@
 import styled from "styled-components";
 import Person from "./Person";
 import resetButton from "../../images/resetButton.webp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import clubsAPI from "../../lib/api/clubsAPI";
+import AuthAPI from "../../lib/api/AuthAPI";
 
 function StatusBar() {
   const [statusInfo, setStatusInfo] = useState([]);
-  const handleStatusInfoReset = () => {};
+  const [userInfo, setUserInfo] = useState({});
+
+  const getClubMembers = async () => {
+    const response = await clubsAPI.getClubMembers();
+    setStatusInfo(response.data.data);
+  };
+
+  const getUserInfo = async () => {
+    const response = await AuthAPI.getUserInfoByToken();
+    console.log(response);
+  };
+
+  const getUserEmail = async () => {
+    const response = await AuthAPI.getUserEmailByToken();
+    console.log(response);
+  };
+
+  const handleStatusInfoReset = () => {
+    getClubMembers();
+  };
+
+  useEffect(() => {
+    getClubMembers();
+    getUserInfo();
+    getUserEmail();
+  }, []);
   return (
     <Section>
       <CurrentNumberPeople>
@@ -25,17 +52,14 @@ function StatusBar() {
         </Title>
 
         <CurrentPeopleList>
-          <Person
-            isHere={true}
-            profileImgSrc={
-              "http://image.dongascience.com/Photo/2017/07/14994185580021.jpg"
-            }
-            generation="22"
-            name="경주원"
-          />
-          <Person isHere={true} />
-          <Person isHere={true} />
-          <Person isHere={false} />
+          {statusInfo.map((info) => (
+            <Person
+              isHere={true}
+              generation={info.year}
+              name={info.name}
+              key={info.id}
+            />
+          ))}
         </CurrentPeopleList>
       </CurrentPeople>
 
