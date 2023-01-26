@@ -2,7 +2,7 @@ import axios from "axios";
 
 const reIssueTokenAPI = async ({ refreshToken }) => {
   const response = await axios.get(
-    process.env.REACT_APP_IDP_API + "api/accounts/re-issue",
+    process.env.REACT_APP_IDP_API + "api/idp/accounts/re-issue",
     {
       params: { refreshToken: refreshToken },
     }
@@ -13,7 +13,7 @@ const reIssueTokenAPI = async ({ refreshToken }) => {
 
 const reCheckTokenAPI = async ({ refreshToken }) => {
   const response = await axios.get(
-    process.env.REACT_APP_IDP_API + "api/accounts/re-check",
+    process.env.REACT_APP_IDP_API + "api/idp/accounts/re-check",
     {
       params: {
         refreshToken: refreshToken,
@@ -25,17 +25,27 @@ const reCheckTokenAPI = async ({ refreshToken }) => {
 };
 
 const getUserInfoByToken = async () => {
-  const response = await axios.get(
-    process.env.REACT_APP_IDP_API + "api/idp/users/token",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("accessToken"),
-      },
-    }
-  );
+  const response = await axios.request({
+    method: "get",
+    url: process.env.REACT_APP_IDP_API + "api/users/token",
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("accessToken"),
+      "access-control-allow-origin": "*",
+      withCredentials: true,
+    },
+  });
 
-  return response;
+  // const response = await axios.get(
+  //   process.env.REACT_APP_IDP_API + "api/users/token",
+  //   {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: "Bearer " + localStorage.getItem("accessToken"),
+  //     },
+  //   }
+  // );
+
+  console.log(response);
 };
 
 const getUserEmailByToken = async () => {
@@ -56,9 +66,19 @@ const getUserEmailByToken = async () => {
   console.log(response);
 };
 
+const redirectToSSO = async () => {
+  const params = { requestUrl: "https://naver.com" };
+  await axios.post(
+    process.env.REACT_APP_IDP_API + "api/idp/accounts/login",
+    {},
+    { params }
+  );
+};
+
 export default {
   reIssueTokenAPI,
   reCheckTokenAPI,
   getUserInfoByToken,
   getUserEmailByToken,
+  redirectToSSO,
 };

@@ -1,12 +1,14 @@
 import styled, { css } from "styled-components";
 import EAT_LOCATIONS from "../../constant/EAT_LOCATIONS";
 
-function LocationPicker({ sx, active }) {
+function LocationPicker({ sx, active, onClick }) {
   return (
     <Section style={sx}>
       <ButtonBox active={active}>
         {EAT_LOCATIONS.ARRAY.map((location) => (
-          <Button>{EAT_LOCATIONS.KOREAN[location]}</Button>
+          <Button id={location} onClick={onClick}>
+            {EAT_LOCATIONS.KOREAN[location]}
+          </Button>
         ))}
       </ButtonBox>
     </Section>
@@ -42,8 +44,8 @@ const ButtonBox = styled.div`
 const Button = styled.div`
   width: 100%;
   height: 35px;
-
   padding: 10px;
+  cursor: pointer;
 `;
 
 export default LocationPicker;

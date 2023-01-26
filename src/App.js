@@ -11,9 +11,13 @@ import Eat from "./pages/Eat";
 import { useEffect, useState } from "react";
 import clubsAPI from "./lib/api/clubsAPI";
 import checkIpAddress from "./lib/utils/checkIpAddress";
+import { useRecoilState, useRecoilValue } from "recoil";
+import userIpAddress from "./recoil/userIpAddress";
+import AuthAPI from "./lib/api/AuthAPI";
 
 function AppRouter() {
   const [isAuthorized, setIsAuthorized] = useState(true);
+  const [userIp, setUserIp] = useRecoilState(userIpAddress);
   const [isInClub, setIsInClub] = useState(false);
 
   const checkIsToken = () => {
@@ -28,26 +32,27 @@ function AppRouter() {
     }
   };
 
+  const checkIsInClub = async () => {
+    setUserIp(await checkIpAddress());
+    const isClubIp = await clubsAPI.checkIsInClub(userIp);
+    console.log(isClubIp);
+  };
+
+  const redirectToSSO = async () => {
+    await AuthAPI.redirectToSSO();
+  };
+
   useEffect(() => {
     checkIsToken();
   }, []);
 
   useEffect(() => {
-    // if (!isAuthorized) {
-    // window.location.assign("https://www.naver.com");
-    // sso 페이지로 이동
-    // }
-
-    const checkIsInClub = async () => {
-      const ip = await checkIpAddress();
-      const response = await clubsAPI.checkIsInClub(ip);
-
-      if (response === true) {
-        console.log(response);
-      }
-    };
-
-    checkIsInClub();
+    if (!isAuthorized) {
+      // sso 페이지로 이동
+      redirectToSSO();
+    } else {
+      checkIsInClub();
+    }
   }, [isAuthorized]);
 
   return (

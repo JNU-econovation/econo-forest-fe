@@ -42,14 +42,14 @@ function CustomTimePicker({ active, setDate, sx }) {
       <ButtonsBox active={active}>
         <ScrollSection>
           {["", ...HOURS, ""].map((hour) => (
-            <Button onClick={onHourClick}>
+            <Button key={hour.toString() + "hour"} onClick={onHourClick}>
               {hour.toString().length === 1 ? `0${hour}` : hour}
             </Button>
           ))}
         </ScrollSection>
         <ScrollSection>
           {["", ...MINUTES, ""].map((minute) => (
-            <Button onClick={onMinuteClick}>
+            <Button key={minute.toString() + "minute"} onClick={onMinuteClick}>
               {minute.toString().length === 1 ? `0${minute}` : minute}
             </Button>
           ))}

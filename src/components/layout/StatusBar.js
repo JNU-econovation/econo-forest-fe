@@ -4,9 +4,12 @@ import resetButton from "../../images/resetButton.webp";
 import { useEffect, useState } from "react";
 import clubsAPI from "../../lib/api/clubsAPI";
 import AuthAPI from "../../lib/api/AuthAPI";
+import { useRecoilValue } from "recoil";
+import userIpAddress from "../../recoil/userIpAddress";
 
 function StatusBar() {
   const [statusInfo, setStatusInfo] = useState([]);
+  const userIp = useRecoilValue(userIpAddress);
   const [userInfo, setUserInfo] = useState({});
 
   const getClubMembers = async () => {
@@ -21,7 +24,6 @@ function StatusBar() {
 
   const getUserEmail = async () => {
     const response = await AuthAPI.getUserEmailByToken();
-    console.log(response);
   };
 
   const handleStatusInfoReset = () => {
@@ -30,9 +32,9 @@ function StatusBar() {
 
   useEffect(() => {
     getClubMembers();
-    getUserInfo();
-    getUserEmail();
-  }, []);
+    // getUserInfo();
+    // getUserEmail();
+  }, [userIp]);
   return (
     <Section>
       <CurrentNumberPeople>

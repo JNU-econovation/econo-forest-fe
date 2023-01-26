@@ -38,13 +38,14 @@ function AuthorButton({ info }) {
       <EditModal
         modalType={EAT_INFO_BUTTONS.KOREAN["UPDATE"]}
         title={info.title + "을 수정하시겠습니까?"}
+        preModifyInfo={info}
         open={editOpen}
         setOpen={setEditOpen}
       />
       <NonEditModal
         modalType={EAT_INFO_BUTTONS.KOREAN["DELETE"]}
         title={info.title + "을 삭제하시겠습니까?"}
-        isAuthor={info.isAuthor}
+        isAuthor={true}
         open={deleteOpen}
         setOpen={setDeleteOpen}
       >

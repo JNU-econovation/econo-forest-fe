@@ -17,7 +17,7 @@ const checkIsInClub = async (ip) => {
   });
 
   // console.log(response);
-  return response.data.in;
+  return response?.data?.code === "200100";
 };
 
 const getClubMembers = async () => {

@@ -6,17 +6,70 @@ import CustomDatePicker from "../common/CustomDatePicker";
 import ModalLayout from "./ModalLayout";
 import CustomTimePicker from "../common/CustomTimePicker";
 import LocationPicker from "./LocationPicker";
+import {
+  DateObjectToEpochSecond,
+  EpochSecondToDateObject,
+} from "../../lib/utils/EpochConverter";
+import EAT_LOCATIONS from "../../constant/EAT_LOCATIONS";
+import eatAPI from "../../lib/api/eatAPI";
 
-function EditModal({ modalType, title, open, setOpen }) {
+function EditModal({ modalType, title, preModifyInfo, open, setOpen }) {
+  const initialSubmitInfo = {
+    eatDateTime: DateObjectToEpochSecond(new Date()),
+    locationCategory: EAT_LOCATIONS.ARRAY[0],
+    title: "",
+  };
+
+  const [submitInfo, setSubmitInfo] = useState(initialSubmitInfo);
+
   const [date, setDate] = useState(new Date());
   const [pickerDate, setPickerDate] = useState(new Date());
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
   const [isLocationPickerOpen, setIsLocationPickerOpen] = useState(false);
 
+  const onSubmitButton = async () => {
+    console.log(submitInfo);
+    console.log(EpochSecondToDateObject(submitInfo.eatDateTime));
+
+    if (new Date() > EpochSecondToDateObject(submitInfo.eatDateTime)) {
+      return;
+    }
+
+    if (preModifyInfo) {
+      // edit
+    } else {
+      // create
+
+      await eatAPI.createEatInfo(submitInfo);
+    }
+  };
+
   useEffect(() => {
-    setPickerDate(date);
+    setSubmitInfo({
+      ...submitInfo,
+      eatDateTime: DateObjectToEpochSecond(date),
+    });
   }, [date]);
+
+  useEffect(() => {
+    setPickerDate(EpochSecondToDateObject(submitInfo?.eatDateTime));
+  }, [submitInfo?.eatDateTime]);
+
+  useEffect(() => {
+    if (!preModifyInfo) {
+      return;
+    } else {
+      console.log(preModifyInfo);
+      setSubmitInfo({
+        eatDateTime: preModifyInfo?.eatInfo,
+        locationCategory: preModifyInfo?.location,
+        title: preModifyInfo?.title,
+      });
+
+      setDate(EpochSecondToDateObject(preModifyInfo?.eatInfo));
+    }
+  }, [preModifyInfo]);
 
   if (!isDatePickerOpen) {
     return (
@@ -30,7 +83,14 @@ function EditModal({ modalType, title, open, setOpen }) {
           <div className="title" id="title">
             제목
           </div>
-          <textarea className="input-textarea" id="title" />
+          <textarea
+            value={submitInfo?.title}
+            onChange={(e) => {
+              setSubmitInfo({ ...submitInfo, title: e.target.value });
+            }}
+            className="input-textarea"
+            id="title"
+          />
         </EditRows>
 
         <EditRows>
@@ -52,7 +112,7 @@ function EditModal({ modalType, title, open, setOpen }) {
           </div>
         </EditRows>
 
-        <EditRows>
+        <EditRows id="time-row">
           <div className="title" id="time">
             시간
           </div>
@@ -85,6 +145,12 @@ function EditModal({ modalType, title, open, setOpen }) {
           </HoverInput>
         </EditRows>
 
+        {new Date() > EpochSecondToDateObject(submitInfo.eatDateTime) ? (
+          <TimeErrorMessage>
+            현재 시간 이후의 약속만 생성할 수 있습니다
+          </TimeErrorMessage>
+        ) : undefined}
+
         <EditRows>
           <div className="title" id="location">
             장소
@@ -98,17 +164,23 @@ function EditModal({ modalType, title, open, setOpen }) {
             }}
           >
             <div className="input" id="location">
-              후문
+              {EAT_LOCATIONS.KOREAN[submitInfo.locationCategory]}
             </div>
             {isLocationPickerOpen ? (
               <LocationPicker
                 active={isLocationPickerOpen}
                 sx={{ padding: "5px 0" }}
+                onClick={(e) => {
+                  setSubmitInfo({
+                    ...submitInfo,
+                    locationCategory: e.target.id,
+                  });
+                }}
               />
             ) : undefined}
           </HoverInput>
         </EditRows>
-        <Button>{modalType}</Button>
+        <Button onClick={onSubmitButton}>{modalType}</Button>
       </ModalLayout>
     );
   } else {
@@ -141,7 +213,7 @@ function EditModal({ modalType, title, open, setOpen }) {
 }
 
 const EditRows = styled.div`
-  margin-bottom: 15px;
+  margin-top: 15px;
 
   display: flex;
   justify-content: flex-start;
@@ -150,12 +222,16 @@ const EditRows = styled.div`
   font-size: 15px;
   color: ${(props) => props.theme.bodyColor};
 
+  &:first-child {
+    margin-top: 0;
+  }
+
   .title {
     margin-right: 10px;
   }
 
   .input-textarea {
-    width: 200px;
+    width: 250px;
     height: 35px;
     padding: 8px;
 
@@ -195,6 +271,12 @@ const EditRows = styled.div`
       cursor: pointer;
     }
   }
+`;
+
+const TimeErrorMessage = styled.div`
+  margin-top: 10px;
+  color: ${(props) => props.theme.orange};
+  font-size: 12px;
 `;
 
 const HoverInput = styled.div`

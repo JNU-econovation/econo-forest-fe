@@ -6,74 +6,18 @@ import LTree from "../images/L_tree@2x.webp";
 import RTree from "../images/R_tree@2x.webp";
 import { useEffect, useState } from "react";
 import Title from "../components/eat/Title";
+import eatAPI from "../lib/api/eatAPI";
 
 function Eat() {
   const [eatPlanArray, setEatPlanArray] = useState([]);
 
-  // const info = {
-  //   id: "1",
-  //   title: "하이하이 밥 먹을 사람",
-  //   date: "",
-  //   location: "후문",
-  //   numParticipant: "0",
-  //   participants: {},
-  //   authorName: "김수민",
-  //   authorId: "2",
-  //   isAuthor: true,
-  //   isApplied: true,
-  // };
-
   useEffect(() => {
-    setEatPlanArray([
-      {
-        id: "1",
-        title: "하이하이 밥 먹을 사람",
-        date: "",
-        location: "후문",
-        numParticipant: "1",
-        participants: ["김수민"],
-        authorName: "김수민",
-        authorId: "2",
-        isAuthor: false,
-        isApplied: true,
-      },
-      {
-        id: "2",
-        title: "하이하이 쭈꾸미 먹을 사람",
-        date: "",
-        location: "상대",
-        numParticipant: "2",
-        participants: ["김수민", "경주원"],
-        authorName: "경주원",
-        authorId: "2",
-        isAuthor: false,
-        isApplied: false,
-      },
-      {
-        id: "3",
-        title: "하이하이 회 먹을 사람",
-        date: "",
-        location: "공대",
-        numParticipant: "3",
-        participants: ["김수민", "경주원", "김종준"],
-        authorName: "김종준",
-        authorId: "2",
-        isAuthor: true,
-        isApplied: true,
-      },
-      {
-        id: "4",
-        title: "하이하이 샌드위치 먹을 사람",
-        date: "",
-        location: "정문",
-        numParticipant: "4",
-        participants: ["김수민", "경주원", "김종준", "김정은"],
-        authorName: "김현지",
-        authorId: "2",
-        isAuthor: true,
-        isApplied: true,
-      },
-    ]);
+    const getEatInfos = async () => {
+      const data = await eatAPI.getEatInfos();
+      setEatPlanArray(() => [...data]);
+    };
+
+    getEatInfos();
   }, []);
 
   return (
@@ -82,8 +26,8 @@ function Eat() {
         <Section>
           <Title />
 
-          {eatPlanArray.map((planInfo) => (
-            <Plan planInfo={planInfo} key={planInfo.id} />
+          {eatPlanArray.map((data) => (
+            <Plan planInfo={data.eatPlan} key={data.eatPlan.eatBoardId} />
           ))}
 
           <img className="left-tree" src={LTree} alt="left-tree" />
