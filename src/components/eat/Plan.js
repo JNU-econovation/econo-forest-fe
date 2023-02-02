@@ -2,16 +2,19 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import PlanButton from "./PlanButton";
 import PlanInfoView from "./PlanInfoView";
+import { EpochSecondToDateObject } from "../../lib/utils/EpochConverter";
 
 function Plan({ planInfo }) {
   const [isClosed, setIsClosed] = useState(false);
 
   useEffect(() => {
     const now = new Date();
-    if (now - 1000 < planInfo.date) {
+    if (now - 1000 < EpochSecondToDateObject(planInfo.eatInfo)) {
       setIsClosed(false);
+    } else {
+      setIsClosed(true);
     }
-  }, [planInfo]);
+  }, [planInfo.eatInfo]);
 
   return (
     <Section>

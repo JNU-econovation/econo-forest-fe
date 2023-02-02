@@ -1,0 +1,9 @@
+const EAT_MEMBER_TYPE = {
+  AUTHOR: "AUTHOR",
+  PARTICIPANT: "PARTICIPANT",
+  NONPARTICIPATE: "NONPARTICIPATE",
+};
+
+Object.freeze(EAT_MEMBER_TYPE);
+
+export default { ...EAT_MEMBER_TYPE };

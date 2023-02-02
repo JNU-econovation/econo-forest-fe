@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const ModalInfo = styled.div`
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-size: 16px;
 
   .title {

@@ -5,6 +5,7 @@ import BeepLogoSrc from "../../images/BeepLogo.webp";
 import TeconoLogoSrc from "../../images/TeconoLogo.webp";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import routes from "../../routes";
 
 function Header() {
   const [isHover, setIsHover] = useState(false);
@@ -15,21 +16,21 @@ function Header() {
   ];
   return (
     <MenuBar>
-      <Link style={{ width: "13%", margin: "auto 0" }} to={"/main"}>
+      <Link style={{ width: "13%", margin: "auto 0" }} to={routes.home}>
         <MainLogo src={MainLogoSrc}></MainLogo>
       </Link>
       <MenuDiv>
         <EachMenu>
-          <Link to={"/eat"}>밥먹어요</Link>
+          <Link to={routes.eat}>밥먹어요</Link>
         </EachMenu>
         <EachMenu>
-          <Link to={"/study"}>공부해요</Link>
+          <Link to={routes.study}>공부해요</Link>
         </EachMenu>
         <EachMenu>
-          <Link to={"/guestbook"}>방명록</Link>
+          <Link to={routes.guestbook}>방명록</Link>
         </EachMenu>
         <EachMenu>
-          <Link to={"/rank"}>랭킹</Link>
+          <Link to={routes.rank}>랭킹</Link>
         </EachMenu>
         <SiteList
           onMouseOver={() => {
@@ -113,7 +114,7 @@ const SiteContent = styled.div`
   right: 24.8%;
   top: 8%;
   background-color: ${(props) => props.theme.white};
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   z-index: 1;
 `;

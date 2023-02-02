@@ -8,8 +8,53 @@ import reset from "styled-reset";
 import Theme from "./styles/Theme";
 import routes from "./routes";
 import Eat from "./pages/Eat";
+import { useEffect, useState } from "react";
+import clubsAPI from "./lib/api/clubsAPI";
+import checkIpAddress from "./lib/utils/checkIpAddress";
+import { useRecoilState, useRecoilValue } from "recoil";
+import userIpAddress from "./recoil/userIpAddress";
+import AuthAPI from "./lib/api/AuthAPI";
 
 function AppRouter() {
+  const [isAuthorized, setIsAuthorized] = useState(true);
+  const [userIp, setUserIp] = useRecoilState(userIpAddress);
+  const [isInClub, setIsInClub] = useState(false);
+
+  const checkIsToken = () => {
+    if (
+      localStorage.getItem("accessToken") &&
+      localStorage.getItem("refreshToken") &&
+      localStorage.getItem("expiredTime")
+    ) {
+      return setIsAuthorized(true);
+    } else {
+      return setIsAuthorized(false);
+    }
+  };
+
+  const checkIsInClub = async () => {
+    setUserIp(await checkIpAddress());
+    const isClubIp = await clubsAPI.checkIsInClub(userIp);
+    console.log(isClubIp);
+  };
+
+  const redirectToSSO = async () => {
+    await AuthAPI.redirectToSSO();
+  };
+
+  useEffect(() => {
+    checkIsToken();
+  }, []);
+
+  useEffect(() => {
+    if (!isAuthorized) {
+      // sso 페이지로 이동
+      redirectToSSO();
+    } else {
+      checkIsInClub();
+    }
+  }, [isAuthorized]);
+
   return (
     <Router>
       <Routes>

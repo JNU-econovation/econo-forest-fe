@@ -4,77 +4,26 @@ import Plan from "../components/eat/Plan";
 import Layout from "../components/layout/Layout";
 import LTree from "../images/L_tree@2x.webp";
 import RTree from "../images/R_tree@2x.webp";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Title from "../components/eat/Title";
+import { useRecoilState } from "recoil";
+import eatPlanArrayState from "../recoil/eat/eatPlanArrayState";
+import eatPageState from "../recoil/eat/eatPageState";
+import getEatInfos from "../lib/utils/getEatInfos";
+
+import Pagination from "react-js-pagination";
 
 function Eat() {
-  const [eatPlanArray, setEatPlanArray] = useState([]);
+  const [eatPlanArray, setEatPlanArray] = useRecoilState(eatPlanArrayState);
+  const [eatPage, setEatPage] = useRecoilState(eatPageState);
 
-  // const info = {
-  //   id: "1",
-  //   title: "하이하이 밥 먹을 사람",
-  //   date: "",
-  //   location: "후문",
-  //   numParticipant: "0",
-  //   participants: {},
-  //   authorName: "김수민",
-  //   authorId: "2",
-  //   isAuthor: true,
-  //   isApplied: true,
-  // };
+  const onPaginationChange = async (page) => {
+    setEatPage(page - 1);
+  };
 
   useEffect(() => {
-    setEatPlanArray([
-      {
-        id: "1",
-        title: "하이하이 밥 먹을 사람",
-        date: "",
-        location: "후문",
-        numParticipant: "1",
-        participants: ["김수민"],
-        authorName: "김수민",
-        authorId: "2",
-        isAuthor: false,
-        isApplied: true,
-      },
-      {
-        id: "2",
-        title: "하이하이 쭈꾸미 먹을 사람",
-        date: "",
-        location: "상대",
-        numParticipant: "2",
-        participants: ["김수민", "경주원"],
-        authorName: "경주원",
-        authorId: "2",
-        isAuthor: false,
-        isApplied: false,
-      },
-      {
-        id: "3",
-        title: "하이하이 회 먹을 사람",
-        date: "",
-        location: "공대",
-        numParticipant: "3",
-        participants: ["김수민", "경주원", "김종준"],
-        authorName: "김종준",
-        authorId: "2",
-        isAuthor: true,
-        isApplied: true,
-      },
-      {
-        id: "4",
-        title: "하이하이 샌드위치 먹을 사람",
-        date: "",
-        location: "정문",
-        numParticipant: "4",
-        participants: ["김수민", "경주원", "김종준", "김정은"],
-        authorName: "김현지",
-        authorId: "2",
-        isAuthor: true,
-        isApplied: true,
-      },
-    ]);
-  }, []);
+    getEatInfos(eatPage, setEatPlanArray);
+  }, [eatPage]);
 
   return (
     <Layout>
@@ -82,12 +31,24 @@ function Eat() {
         <Section>
           <Title />
 
-          {eatPlanArray.map((planInfo) => (
-            <Plan planInfo={planInfo} key={planInfo.id} />
+          {eatPlanArray.map((data) => (
+            <Plan planInfo={data.eatPlan} key={data.eatPlan.eatBoardId} />
           ))}
 
           <img className="left-tree" src={LTree} alt="left-tree" />
           <img className="right-tree" src={RTree} alt="right-tree" />
+          <Pagination
+            activeClass={"active"}
+            itemClassNext={"next"}
+            itemClassPrev={"prev"}
+            itemsCountPerPage={4}
+            totalItemsCount={10}
+            pageRangeDisplayed={5}
+            onChange={onPaginationChange}
+            prevPageText="‹"
+            nextPageText="›"
+            hideFirstLastPages
+          />
         </Section>
       </EatLayout>
     </Layout>
@@ -116,13 +77,60 @@ const EatLayout = styled.div`
   .left-tree {
     left: 2.5%;
   }
+
+  .pagination {
+    position: absolute;
+    bottom: 5%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pagination li {
+    margin: 0 5px;
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: ${(props) => props.theme.additiveColor};
+    font-size: 12px;
+
+    background-color: ${(props) => props.theme.white};
+    border: solid 1px ${(props) => props.theme.additiveColor};
+    border-radius: 3px;
+
+    cursor: pointer;
+  }
+
+  .pagination li.active {
+    color: ${(props) => props.theme.white};
+
+    background-color: ${(props) => props.theme.orange};
+    border: solid 1px ${(props) => props.theme.white};
+  }
+
+  .pagination li.prev,
+  .pagination li.next {
+    font-size: 24px;
+    color: ${(props) => props.theme.white};
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+  }
+
+  .pagination li.disabled {
+    cursor: default;
+  }
 `;
 
 const Section = styled.div`
   width: 100%;
   height: 100%;
 
-  padding: 80px 7%;
+  padding: 50px 7%;
 
   display: flex;
   flex-direction: column;
