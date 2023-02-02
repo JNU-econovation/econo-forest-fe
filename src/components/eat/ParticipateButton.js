@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useState, useEffect } from "react";
 
 import NonEditModal from "./NonEditModal";
@@ -9,6 +9,10 @@ import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
 import ModalInfo from "../../styles/eat/ModalInfo";
 import { EpochSecondToDateObject } from "../../lib/utils/EpochConverter";
 import EAT_LOCATIONS from "../../constant/EAT_LOCATIONS";
+import eatAPI from "../../lib/api/eatAPI";
+import eatPlanArrayState from "../../recoil/eat/eatPlanArrayState";
+import eatPageState from "../../recoil/eat/eatPageState";
+import getEatInfos from "../../lib/utils/getEatInfos";
 
 function ParticipateButton({ info }) {
   const [open, setOpen] = useState(false);
@@ -16,6 +20,22 @@ function ParticipateButton({ info }) {
 
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+
+  const setEatPlanArray = useSetRecoilState(eatPlanArrayState);
+  const eatPage = useRecoilValue(eatPageState);
+
+  const onParticipateClick = async () => {
+    const data = {
+      eatInfo: info.eatInfo,
+      locationCategory: info.locationCategory,
+    };
+
+    await eatAPI.participateInfo(info.eatBoardId, data);
+    await getEatInfos(eatPage, setEatPlanArray);
+
+    setOpen(false);
+    setIsPopUpOpen(false);
+  };
 
   useEffect(() => {
     const dateTime = EpochSecondToDateObject(info.eatInfo);
@@ -40,6 +60,7 @@ function ParticipateButton({ info }) {
       </Button>
       <NonEditModal
         modalType={EAT_INFO_BUTTONS.KOREAN["PARTICIPATE"]}
+        onButtonClick={onParticipateClick}
         title={info.title + "에 참여하시겠습니까?"}
         isAuthor={info.isAuthor}
         infoTitle={info.title}
@@ -49,7 +70,9 @@ function ParticipateButton({ info }) {
       >
         <ModalInfo>
           <div className="title">장소</div>
-          <div className="text">{EAT_LOCATIONS.KOREAN[info.location]}</div>
+          <div className="text">
+            {EAT_LOCATIONS.KOREAN[info.locationCategory]}
+          </div>
         </ModalInfo>
         <ModalInfo>
           <div className="title">날짜</div>

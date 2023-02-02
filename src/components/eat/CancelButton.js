@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useState, useEffect } from "react";
 
 import NonEditModal from "./NonEditModal";
@@ -9,13 +9,35 @@ import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
 import ModalInfo from "../../styles/eat/ModalInfo";
 import { EpochSecondToDateObject } from "../../lib/utils/EpochConverter";
 import EAT_LOCATIONS from "../../constant/EAT_LOCATIONS";
+import eatAPI from "../../lib/api/eatAPI";
+import getEatInfos from "../../lib/utils/getEatInfos";
+import eatPageState from "../../recoil/eat/eatPageState";
+import eatPlanArrayState from "../../recoil/eat/eatPlanArrayState";
 
 function CancelButton({ info }) {
   const [open, setOpen] = useState(false);
   const setIsPopUpOpen = useSetRecoilState(isPopUpOpenState);
 
+  const setEatPlanArray = useSetRecoilState(eatPlanArrayState);
+  const eatPage = useRecoilValue(eatPageState);
+
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+
+  const onCancelButton = async () => {
+    const data = {
+      eatInfo: info.eatInfo,
+      locationCategory: info.locationCategory,
+    };
+
+    console.log(data);
+
+    await eatAPI.nonParticipateInfo(info.eatBoardId, data);
+    await getEatInfos(eatPage, setEatPlanArray);
+
+    setOpen(false);
+    setIsPopUpOpen(false);
+  };
 
   useEffect(() => {
     const dateTime = EpochSecondToDateObject(info.eatInfo);
@@ -40,6 +62,7 @@ function CancelButton({ info }) {
       </Button>
       <NonEditModal
         modalType={EAT_INFO_BUTTONS.KOREAN["CANCEL"]}
+        onButtonClick={onCancelButton}
         title={info.title + "에 불참하시겠습니까?"}
         isAuthor={info.isAuthor}
         open={open}

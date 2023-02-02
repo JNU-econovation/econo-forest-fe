@@ -8,10 +8,10 @@ const client = axios.create({
   },
 });
 
-const getEatInfos = async () => {
+const getEatInfos = async (page) => {
   const response = await client.get("/api/eatBoards", {
     params: {
-      page: 0,
+      page: page,
       size: 4,
     },
   });
@@ -20,15 +20,12 @@ const getEatInfos = async () => {
 };
 
 const createEatInfo = async (info) => {
-  const response = await client.post("/api/eatBoards", {
-    eatReqDto: info,
-  });
-  console.log(response);
+  await client.post("/api/eatBoards", info);
 };
 
 const updateEatInfo = async (id, info) => {
-  const response = await client.put(`/api/eatBoards/${id}`, {
-    eatReqDto: info,
+  const response = await client.post(`/api/eatBoards/${id}`, {
+    ...info,
   });
 
   console.log(response);
@@ -40,4 +37,19 @@ const deleteEatInfo = async (id) => {
   console.log(response);
 };
 
-export default { getEatInfos, createEatInfo, updateEatInfo, deleteEatInfo };
+const participateInfo = async (id, info) => {
+  await client.post(`api/eatBoards/${id}/participate`, { ...info });
+};
+
+const nonParticipateInfo = async (id, info) => {
+  await client.post(`/api/eatBoards/${id}/non-participate`, { ...info });
+};
+
+export default {
+  getEatInfos,
+  createEatInfo,
+  updateEatInfo,
+  deleteEatInfo,
+  participateInfo,
+  nonParticipateInfo,
+};

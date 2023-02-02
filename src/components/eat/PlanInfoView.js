@@ -37,7 +37,7 @@ function PlanInfoView({ info }) {
       <div id="title">{info.title}</div>
       <div id="date">{date}</div>
       <div id="time">{time}</div>
-      <div id="location">{EAT_LOCATIONS.KOREAN[info.location]}</div>
+      <div id="location">{EAT_LOCATIONS.KOREAN[info.locationCategory]}</div>
       <div
         id="numParticipant"
         onMouseOver={() => {

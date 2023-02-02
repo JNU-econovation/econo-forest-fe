@@ -27,19 +27,16 @@ const reCheckTokenAPI = async ({ refreshToken }) => {
 const getUserInfoByToken = async () => {
   const response = await axios.request({
     method: "get",
-    url: process.env.REACT_APP_IDP_API + "api/users/token",
+    url: process.env.REACT_APP_IDP_API + "api/idp/users/token",
     headers: {
       Authorization: "Bearer " + localStorage.getItem("accessToken"),
-      "access-control-allow-origin": "*",
-      withCredentials: true,
     },
   });
 
   // const response = await axios.get(
-  //   process.env.REACT_APP_IDP_API + "api/users/token",
+  //   process.env.REACT_APP_IDP_API + "api/idp/users/token",
   //   {
   //     headers: {
-  //       "Content-Type": "application/json",
   //       Authorization: "Bearer " + localStorage.getItem("accessToken"),
   //     },
   //   }

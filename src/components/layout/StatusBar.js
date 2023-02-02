@@ -9,21 +9,19 @@ import userIpAddress from "../../recoil/userIpAddress";
 
 function StatusBar() {
   const [statusInfo, setStatusInfo] = useState([]);
+  const [numPeopleInClub, setNumPeopleInClub] = useState(0);
   const userIp = useRecoilValue(userIpAddress);
   const [userInfo, setUserInfo] = useState({});
 
   const getClubMembers = async () => {
     const response = await clubsAPI.getClubMembers();
     setStatusInfo(response.data.data);
+    setNumPeopleInClub(response.data.data.length);
   };
 
   const getUserInfo = async () => {
     const response = await AuthAPI.getUserInfoByToken();
     console.log(response);
-  };
-
-  const getUserEmail = async () => {
-    const response = await AuthAPI.getUserEmailByToken();
   };
 
   const handleStatusInfoReset = () => {
@@ -32,14 +30,15 @@ function StatusBar() {
 
   useEffect(() => {
     getClubMembers();
-    // getUserInfo();
-    // getUserEmail();
+    getUserInfo();
   }, [userIp]);
   return (
     <Section>
       <CurrentNumberPeople>
         <div className="title">현재 동아리 인원수</div>
-        <div className="number-people">00 명</div>
+        <div className="number-people">
+          {numPeopleInClub < 10 ? `0${numPeopleInClub}` : numPeopleInClub} 명
+        </div>
       </CurrentNumberPeople>
 
       <CurrentPeople>
@@ -69,7 +68,7 @@ function StatusBar() {
         <Title>
           <div className="title">MY PAGE</div>
         </Title>
-        <Person isHere={true} generation="22" name="경주원" isSelf={true} />
+        <Person isHere={true} generation="20" name="이서현" isSelf={true} />
       </MyAccount>
     </Section>
   );

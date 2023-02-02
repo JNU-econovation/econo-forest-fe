@@ -2,7 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import ModalLayout from "./ModalLayout";
 
-function NonEditModal({ modalType, title, open, setOpen, isAuthor, children }) {
+function NonEditModal({
+  modalType,
+  onButtonClick,
+  title,
+  open,
+  setOpen,
+  isAuthor,
+  children,
+}) {
   return (
     <ModalLayout
       modalType={modalType}
@@ -11,7 +19,9 @@ function NonEditModal({ modalType, title, open, setOpen, isAuthor, children }) {
       setOpen={setOpen}
     >
       {children}
-      <Button isAuthor={isAuthor}>{modalType}</Button>
+      <Button onClick={onButtonClick} isAuthor={isAuthor}>
+        {modalType}
+      </Button>
     </ModalLayout>
   );
 }
@@ -32,6 +42,8 @@ const Button = styled.div`
   background-color: ${(props) =>
     props.isAuthor ? props.theme.orange : "#646464"};
   font-size: 16px;
+
+  cursor: pointer;
 `;
 
 export default React.memo(NonEditModal);

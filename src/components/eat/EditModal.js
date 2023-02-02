@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { FaCalendarAlt } from "react-icons/fa";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import CustomDatePicker from "../common/CustomDatePicker";
 import ModalLayout from "./ModalLayout";
@@ -12,6 +13,10 @@ import {
 } from "../../lib/utils/EpochConverter";
 import EAT_LOCATIONS from "../../constant/EAT_LOCATIONS";
 import eatAPI from "../../lib/api/eatAPI";
+import eatPlanArrayState from "../../recoil/eat/eatPlanArrayState";
+import eatPageState from "../../recoil/eat/eatPageState";
+import getEatInfos from "../../lib/utils/getEatInfos";
+import isPopUpOpenState from "../../recoil/eat/isPopUpOpenState";
 
 function EditModal({ modalType, title, preModifyInfo, open, setOpen }) {
   const initialSubmitInfo = {
@@ -28,6 +33,11 @@ function EditModal({ modalType, title, preModifyInfo, open, setOpen }) {
   const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
   const [isLocationPickerOpen, setIsLocationPickerOpen] = useState(false);
 
+  const setEatPlanArray = useSetRecoilState(eatPlanArrayState);
+  const eatPage = useRecoilValue(eatPageState);
+
+  const setIsPopOpen = useSetRecoilState(isPopUpOpenState);
+
   const onSubmitButton = async () => {
     console.log(submitInfo);
     console.log(EpochSecondToDateObject(submitInfo.eatDateTime));
@@ -38,11 +48,21 @@ function EditModal({ modalType, title, preModifyInfo, open, setOpen }) {
 
     if (preModifyInfo) {
       // edit
+      await eatAPI.updateEatInfo(preModifyInfo.eatBoardId, submitInfo);
+      await getEatInfos(eatPage, setEatPlanArray);
+
+      setOpen(false);
+      setIsPopOpen(false);
     } else {
       // create
-
       await eatAPI.createEatInfo(submitInfo);
+      await getEatInfos(eatPage, setEatPlanArray);
+
+      setOpen(false);
+      setIsPopOpen(false);
     }
+
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -60,10 +80,9 @@ function EditModal({ modalType, title, preModifyInfo, open, setOpen }) {
     if (!preModifyInfo) {
       return;
     } else {
-      console.log(preModifyInfo);
       setSubmitInfo({
         eatDateTime: preModifyInfo?.eatInfo,
-        locationCategory: preModifyInfo?.location,
+        locationCategory: preModifyInfo?.locationCategory,
         title: preModifyInfo?.title,
       });
 
